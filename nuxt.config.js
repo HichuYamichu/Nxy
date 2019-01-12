@@ -1,4 +1,5 @@
 const pkg = require('./package');
+require('dotenv').config();
 
 module.exports = {
 	mode: 'universal',
@@ -22,7 +23,7 @@ module.exports = {
 	/*
 	** Customize the progress-bar color
 	*/
-	loading: { color: '#fff' },
+	loading: { color: '##5AF2A2' },
 
 	/*
 	** Global CSS
@@ -43,7 +44,8 @@ module.exports = {
 	*/
 	modules: [
 		// Doc: https://github.com/nuxt-community/axios-module#usage
-		'@nuxtjs/axios'
+		'@nuxtjs/axios',
+		'@nuxtjs/dotenv'
 	],
 	/*
 	** Axios module configuration

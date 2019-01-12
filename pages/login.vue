@@ -2,7 +2,7 @@
 	<div>
 		<v-layout row>
     <v-flex xs8 offset-xs2>
-      <AuthenticationPanel title="Register">
+      <AuthenticationPanel title="Login">
 				<form autocomplete="off">
 					<v-text-field
 						type="email" 
@@ -24,8 +24,8 @@
           <div class="error" v-html="formError" />
           <v-btn
 						class="primary"
-            @click="register">
-            register
+            @click="login">
+            Login
           </v-btn>
 			</AuthenticationPanel>
     </v-flex>
@@ -47,9 +47,9 @@ import AuthenticationPanel from '@/components/AuthenticationPanel'
     	}
 		},
 		methods: {
-			async register() {
+			async login() {
 				try {
-					await this.$store.dispatch('register', {
+					await this.$store.dispatch('login', {
 						email: this.formEmail,
 						password: this.formPassword
 					})
