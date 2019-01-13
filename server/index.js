@@ -4,21 +4,33 @@ const consola = require('consola');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const { Nuxt, Builder } = require('nuxt');
+const MongoStore = require('connect-mongo')(session);
 const app = express();
+require('dotenv').config();
 const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
+const store = new MongoStore({ url: `mongodb://${process.env.DBUSER}:${process.env.DBPASSWORD}@ds048279.mlab.com:48279/nxy`, autoRemove: 'disabled' });
+
+store.on('destroy', () => {
+	console.log('logout');
+});
 
 app.use(session({
+	name: 'cookie',
+	store: store,
 	secret: 'super-secret-key',
 	resave: false,
 	saveUninitialized: false,
-	cookie: { maxAge: 60000 }
+	cookie: {
+		sameSite: true,
+		maxAge: 60000
+	}
 }));
 
-const authService = require('../api/authService');
-// POST `/api/login` to log in the user and add him to the `req.session.authUser`
+const authService = require('./services/authService');
+
 app.post('/api/login', (req, res) => {
 	authService.login(req, res);
 });
@@ -27,9 +39,8 @@ app.post('/api/register', (req, res) => {
 	authService.register(req, res);
 });
 
-// POST `/api/logout` to log out the user and remove it from the `req.session`
 app.post('/api/logout', (req, res) => {
-	delete req.session.authUser;
+	req.session.destroy();
 	res.json({ ok: true });
 });
 

@@ -26,6 +26,7 @@ module.exports = {
 				email: req.body.email,
 				password: req.body.password
 			});
+			req.session.authUser = user.ops[0];
 			return res.json({ email: user.email });
 		} catch (err) {
 			res.status(401).json({ message: err.message });
@@ -40,6 +41,7 @@ module.exports = {
 				password: password
 			});
 			if (!user) throw new Error('Wrong credentials');
+			req.session.authUser = user;
 			return res.json({ email: user.email });
 		} catch (err) {
 			res.status(401).json({ message: err.message });
