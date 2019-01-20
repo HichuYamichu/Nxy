@@ -1,14 +1,16 @@
 module.exports = {
 	async dbinit() {
 		const db = require('mongodb');
-		const client = await db.MongoClient.connect(`mongodb://${process.env.DBUSER}:${process.env.DBPASSWORD}@ds048279.mlab.com:48279/nxy`, { useNewUrlParser: true });
+		const url = 'mongodb://localhost:27017';
+		const client = await db.MongoClient.connect(url, { useNewUrlParser: true });
 
 		const Users = client.db('nxy').collection('Users');
+		const sessions = client.db('nxy').collection('sessions');
 
 		const collections = {
+			sessions: sessions,
 			users: Users
 		};
 		return collections;
 	}
 };
-

@@ -3,7 +3,9 @@ require('dotenv').config();
 
 module.exports = {
 	mode: 'universal',
-
+	router: {
+		middleware: 'heartbeat'
+	},
 	/*
 	** Headers of the page
 	*/
@@ -29,7 +31,8 @@ module.exports = {
 	** Global CSS
 	*/
 	css: [
-		'~/assets/style/app.styl'
+		'~/assets/style/app.styl',
+		'~/assets/style/main.css'
 	],
 
 	/*

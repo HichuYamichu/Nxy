@@ -14,6 +14,7 @@ export const actions = {
 	// nuxtServerInit is called by Nuxt.js before server-rendering every page
 	nuxtServerInit({ commit }, { req }) {
 		if (req.session && req.session.authUser) {
+			console.log(`store ${Date.now()}`);
 			commit('SET_USER', { email: req.session.authUser.email });
 		}
 	},
@@ -44,5 +45,4 @@ export const actions = {
 		await axios.post('/api/logout');
 		commit('SET_USER', null);
 	}
-
 };

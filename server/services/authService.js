@@ -3,7 +3,8 @@ const joi = require('joi');
 
 module.exports = {
 	async register(req, res) {
-		const { users } = await db.dbinit();
+		console.log(db.dbinit());
+		const { users } = db.dbinit();
 		const schema = {
 			email: joi.string().email(),
 			password: joi.string().regex(new RegExp('^[a-zA-Z0-9]{8,32}$'))

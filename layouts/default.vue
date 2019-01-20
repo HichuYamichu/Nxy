@@ -1,6 +1,6 @@
 <template>
   <v-app dark>
-		<pageHeader id="top"/>
+		<pageHeader/>
 		<v-content>
       <v-container>    
 				<nuxt/>
@@ -24,8 +24,5 @@ import pageFooter from '~/components/Footer.vue'
 </script>
 
 <style>
-	#top {
-		margin-top: 5%;
-	}
 
 </style>

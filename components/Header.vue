@@ -1,6 +1,6 @@
 <template>
   <div>
-		<v-toolbar fixed>
+		<v-toolbar app flat>
 			<v-toolbar-title>
 				Hichu-Yamichu
 			</v-toolbar-title>
@@ -11,7 +11,7 @@
 				<v-btn flat v-if="!$store.state.authUser" nuxt:true to="/register">Register</v-btn>
 				<v-btn flat v-if="$store.state.authUser" nuxt:true to="/inspire">About</v-btn>
 				<v-btn flat v-if="$store.state.authUser" nuxt:true to="/DBPage">DB</v-btn>
-				<v-btn active-class="" flat v-if="$store.state.authUser" @click="logout" nuxt:true to="/" >Logout</v-btn>
+				<v-btn active-class="" flat v-if="$store.state.authUser" @click="logout" nuxt:true to="/login" >Logout</v-btn>
 			</v-toolbar-items>
 		</v-toolbar>
   </div>

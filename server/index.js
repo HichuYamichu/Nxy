@@ -1,4 +1,3 @@
-
 const express = require('express');
 const consola = require('consola');
 const bodyParser = require('body-parser');
@@ -10,26 +9,27 @@ require('dotenv').config();
 const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || 3000;
 
-app.use(bodyParser.json());
-const store = new MongoStore({ url: `mongodb://${process.env.DBUSER}:${process.env.DBPASSWORD}@ds048279.mlab.com:48279/nxy`, autoRemove: 'disabled' });
+const store = new MongoStore({ url: 'mongodb://localhost:27017/nxy' });
 
-store.on('destroy', () => {
-	console.log('logout');
+store.on('destroy', id => {
+	console.log(`session ${id} was destroyed`);
 });
 
 app.use(session({
-	name: 'cookie',
 	store: store,
-	secret: 'super-secret-key',
-	resave: false,
+	secret: process.env.SECRET,
+	resave: true,
+	rolling: true,
 	saveUninitialized: false,
 	cookie: {
-		sameSite: true,
-		maxAge: 60000
+		maxAge: 1000 * 20
 	}
 }));
 
 const authService = require('./services/authService');
+app.use(bodyParser.json());
+
+app.post('/api/heartbeat', (req, res) => res.sendStatus(200));
 
 app.post('/api/login', (req, res) => {
 	authService.login(req, res);
@@ -40,8 +40,8 @@ app.post('/api/register', (req, res) => {
 });
 
 app.post('/api/logout', (req, res) => {
-	req.session.destroy();
-	res.json({ ok: true });
+	store.destroy(req.sessionID);
+	res.sendStatus(200);
 });
 
 app.set('port', port);
