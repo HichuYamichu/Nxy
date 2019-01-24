@@ -2,13 +2,12 @@
 	<v-layout>
 		<v-flex>
 			<v-card class="elevation-10">
-				<div class="accent">
+				<div>
 					<v-toolbar flat dense class="primary" dark>
 						<v-toolbar-title>{{title}}</v-toolbar-title>
 					</v-toolbar>
 					<div class="pl-4 pr-4 pt-4 pb-2" id="center">
 						<slot>
-							undefined
 						</slot>
 					</div>
 				</div>

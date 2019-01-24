@@ -1,6 +1,6 @@
 <template>
 	<v-card class="elevate-{23}">
-		<v-toolbar flat dense class="info" dark>
+		<v-toolbar flat dense class="info">
 			<v-toolbar-title>About</v-toolbar-title>
 		</v-toolbar>
 		<div class="pt-2 pb-3">
@@ -15,7 +15,4 @@
 </script>
 
 <style scoped>
-	#center {
-		text-align: center;
-	}
 </style>

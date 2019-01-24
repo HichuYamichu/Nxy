@@ -1,26 +1,32 @@
 import axios from 'axios';
+import { Store } from 'vuex';
 
 export const state = () => ({
-	authUser: null
+	authUser: null,
+	isDark: true
 });
 
 export const mutations = {
 	SET_USER: (state, user) => {
 		state.authUser = user;
+	},
+	THEME: (state, theme) => {
+		state.isDark = theme;
 	}
 };
 
 export const actions = {
-	// nuxtServerInit is called by Nuxt.js before server-rendering every page
-	nuxtServerInit({ commit }, { req }) {
+	nuxtServerInit(store, { req }) {
 		if (req.session && req.session.authUser) {
-			console.log(`store ${Date.now()}`);
-			commit('SET_USER', { email: req.session.authUser.email });
+			store.commit('SET_USER', { username: req.session.authUser.username });
+			if (typeof req.session.dark !== 'undefined') {
+				store.commit('THEME', req.session.dark);
+			}
 		}
 	},
-	async login({ commit }, { email, password }) {
+	async login({ commit }, { username, password }) {
 		try {
-			const { data } = await axios.post('/api/login', { email, password });
+			const { data } = await axios.post('/api/login', { username, password });
 			commit('SET_USER', data);
 		} catch (error) {
 			if (error.response && error.response.status === 401) {
@@ -29,9 +35,9 @@ export const actions = {
 			throw error;
 		}
 	},
-	async register({ commit }, { email, password }) {
+	async register({ commit }, { username, password }) {
 		try {
-			const { data } = await axios.post('/api/register', { email, password });
+			const { data } = await axios.post('/api/register', { username, password });
 			commit('SET_USER', data);
 		} catch (error) {
 			if (error.response && error.response.status === 401) {
@@ -44,5 +50,12 @@ export const actions = {
 	async logout({ commit }) {
 		await axios.post('/api/logout');
 		commit('SET_USER', null);
+	},
+
+	async setTheme(store) {
+		store.commit('THEME', !store.state.isDark);
+		if (store.state.authUser) {
+			await axios.post('/api/user/settings', { dark: store.state.isDark });
+		}
 	}
 };

@@ -22,14 +22,17 @@ app.use(session({
 	rolling: true,
 	saveUninitialized: false,
 	cookie: {
-		maxAge: 1000 * 20
+		maxAge: 1000 * 90
 	}
 }));
 
-const authService = require('./services/authService');
+const authService = require('./services/auth');
+const userSettings = require('./services/userSettings');
 app.use(bodyParser.json());
 
-app.post('/api/heartbeat', (req, res) => res.sendStatus(200));
+app.post('/api/heartbeat', (req, res) => {
+	res.sendStatus(200);
+});
 
 app.post('/api/login', (req, res) => {
 	authService.login(req, res);
@@ -40,7 +43,13 @@ app.post('/api/register', (req, res) => {
 });
 
 app.post('/api/logout', (req, res) => {
-	store.destroy(req.sessionID);
+	req.session.destroy();
+	res.sendStatus(200);
+});
+
+app.post('/api/user/settings', (req, res) => {
+	console.log(req.body);
+	req.session.dark = req.body.dark;
 	res.sendStatus(200);
 });
 

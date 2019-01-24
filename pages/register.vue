@@ -6,10 +6,10 @@
 					<form autocomplete="off">
 						<v-text-field
 							prepend-icon="person"
-							type="email" 
-							name="email"
-							v-model="formEmail"
-							placeholder="email"
+							type="username" 
+							name="username"
+							v-model="formUsername"
+							placeholder="username"
 							solo
 						></v-text-field>
          	 <br>
@@ -36,35 +36,35 @@
 
 <script>
 import AuthenticationPanel from '@/components/AuthenticationPanel'
-	export default {
-		components: {
-			AuthenticationPanel
-		},
-		data() {
-			return {
-				formError: null,
-				formEmail: '',
-				formPassword: ''
-    	}
-		},
-		methods: {
-			async register() {
-				try {
-					await this.$store.dispatch('register', {
-						email: this.formEmail,
-						password: this.formPassword
-					})
-					this.formEmail = ''
-					this.formPassword = ''
-					this.formError = null
-					this.$router.push("/")
+export default {
+	components: {
+		AuthenticationPanel
+	},
+	data() {
+		return {
+			formError: null,
+			formUsername: '',
+			formPassword: '',
+		}
+	},
+	methods: {
+		async register() {
+			try {
+				await this.$store.dispatch('register', {
+					username: this.formUsername,
+					password: this.formPassword
+				})
+				this.formUsername = ''
+				this.formPassword = ''
+				this.formError = null
+				this.$router.push("/")
 
-				} catch (e) {
-					this.formError = e.message
-				}
-    	},
+			} catch (e) {
+				this.formError = e.message
+			}
 		},
-	}
+	},
+}
 </script>
 
 <style scoped>
