@@ -18,11 +18,11 @@ store.on('destroy', id => {
 app.use(session({
 	store: store,
 	secret: process.env.SECRET,
-	resave: true,
+	resave: false,
 	rolling: true,
 	saveUninitialized: false,
 	cookie: {
-		maxAge: 1000 * 90
+		maxAge: 1000 * 20
 	}
 }));
 

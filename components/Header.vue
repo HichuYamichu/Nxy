@@ -7,12 +7,12 @@
 				<v-btn flat nuxt:true to="/">Main</v-btn>
 			<v-spacer></v-spacer>
 			<v-toolbar-items class="hidden-sm-and-down">
-				<span id="user" v-if="$store.state.authUser">Welcome {{ $store.state.authUser.username }}!</span>
+				<span id="user" v-if="$store.state.auth.authUser">Welcome {{ $store.state.auth.authUser.username }}!</span>
 				<v-btn icon small><v-icon small @click="dark">invert_colors</v-icon></v-btn>	
-				<v-btn flat v-if="!$store.state.authUser" nuxt:true to="/login">Login</v-btn>
-				<v-btn flat v-if="!$store.state.authUser" nuxt:true to="/register">Register</v-btn>
-				<v-btn flat v-if="$store.state.authUser" nuxt:true to="/DBPage">DB</v-btn>
-				<v-btn active-class="" flat v-if="$store.state.authUser" @click="logout" nuxt:true to="/login" >Logout</v-btn>
+				<v-btn flat v-if="!$store.state.auth.authUser" nuxt:true to="/login">Login</v-btn>
+				<v-btn flat v-if="!$store.state.auth.authUser" nuxt:true to="/register">Register</v-btn>
+				<v-btn flat v-if="$store.state.auth.authUser" nuxt:true to="/DBPage">DB</v-btn>
+				<v-btn active-class="" flat v-if="$store.state.auth.authUser" @click="logout" nuxt:true to="/login" >Logout</v-btn>
 			</v-toolbar-items>
 		</v-toolbar>
   </div>

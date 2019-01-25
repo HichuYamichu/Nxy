@@ -1,5 +1,5 @@
 <template>
-  <v-app :dark="this.$store.state.isDark">
+  <v-app :dark="this.$store.state.darkTheme">
 		<pageHeader/>
 		<v-content>
       <v-container>    
