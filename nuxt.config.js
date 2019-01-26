@@ -4,7 +4,6 @@ require('dotenv').config();
 module.exports = {
 	mode: 'universal',
 	router: {
-		middleware: 'heartbeat'
 	},
 	/*
 	** Headers of the page
@@ -55,6 +54,7 @@ module.exports = {
 	*/
 	axios: {
 		// See https://github.com/nuxt-community/axios-module#options
+		baseURL: 'http://127.0.0.1:3000'
 	},
 
 	/*

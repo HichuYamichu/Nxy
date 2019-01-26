@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 export const state = () => ({
 	authUser: null
 });
@@ -14,7 +12,7 @@ export const actions = {
 		root: true,
 		async handler({ commit }, { username, password }) {
 			try {
-				const { data } = await axios.post('/api/login', { username, password });
+				const data = await this.$axios.$post('/api/login', { username, password });
 				commit('SET_USER', data);
 			} catch (error) {
 				if (error.response && error.response.status === 401) {
@@ -28,7 +26,7 @@ export const actions = {
 		root: true,
 		async handler({ commit }, { username, password }) {
 			try {
-				const { data } = await axios.post('/api/register', { username, password });
+				const data = await this.$axios.$post('/api/register', { username, password });
 				commit('SET_USER', data);
 			} catch (error) {
 				if (error.response && error.response.status === 401) {
@@ -41,7 +39,7 @@ export const actions = {
 	logout: {
 		root: true,
 		async handler({ commit }) {
-			await axios.post('/api/logout');
+			await this.$axios.$post('/api/logout');
 			commit('SET_USER', null);
 		}
 	}

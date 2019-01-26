@@ -1,4 +1,3 @@
-import axios from 'axios';
 import { Store } from 'vuex';
 
 export const state = () => ({
@@ -24,7 +23,7 @@ export const actions = {
 	async setTheme({ state, commit }) {
 		commit('THEME', !state.darkTheme);
 		if (state.auth.authUser) {
-			await axios.post('/api/user/settings', { dark: state.darkTheme });
+			await this.$axios.$post('/api/user/settings', { theme: state.darkTheme });
 		}
 	}
 };

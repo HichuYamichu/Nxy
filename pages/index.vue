@@ -1,10 +1,10 @@
 <template>
 	<v-layout row wrap justify-space-around>
 		<v-flex xs6>
-			<panel/>
+			<panel></panel>
 		</v-flex>
 		<v-flex xs4>
-			<panel/>
+			<panel v-bind:todos="data"></panel>
 		</v-flex>
 		<v-flex xs6 class="mt-5">
 			<carousel/>
@@ -23,6 +23,10 @@ export default {
   components: {
 		panel,
 		carousel
-  }
+  },
+	async asyncData({ $axios }) {
+		const data = await $axios.$get('/api/todo')
+		return { data }
+	}
 }
 </script>

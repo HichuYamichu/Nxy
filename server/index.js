@@ -9,7 +9,8 @@ require('dotenv').config();
 const host = process.env.HOST || '127.0.0.1';
 const port = process.env.PORT || 3000;
 
-const store = new MongoStore({ url: 'mongodb://localhost:27017/nxy' });
+const dbInstance = require('./database/index');
+const store = new MongoStore({ dbPromise: dbInstance() });
 
 store.on('destroy', id => {
 	console.log(`session ${id} was destroyed`);
@@ -28,11 +29,9 @@ app.use(session({
 
 const authService = require('./services/auth');
 const userSettings = require('./services/userSettings');
-app.use(bodyParser.json());
+const todo = require('./services/todos');
 
-app.post('/api/heartbeat', (req, res) => {
-	res.sendStatus(200);
-});
+app.use(bodyParser.json());
 
 app.post('/api/login', (req, res) => {
 	authService.login(req, res);
@@ -48,9 +47,22 @@ app.post('/api/logout', (req, res) => {
 });
 
 app.post('/api/user/settings', (req, res) => {
-	console.log(req.body);
-	req.session.dark = req.body.dark;
+	if (typeof req.body.theme !== 'undefined') {
+		userSettings.setTheme(req);
+	}
 	res.sendStatus(200);
+});
+
+app.post('/api/todo', (req, res) => {
+	todo.save(req, res);
+});
+
+app.get('/api/todo', (req, res) => {
+	todo.fetch(req, res);
+});
+
+app.delete('/api/todo', (req, res) => {
+	todo.delete(req, res);
 });
 
 app.set('port', port);

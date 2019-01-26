@@ -7,8 +7,10 @@
 				<v-btn flat nuxt:true to="/">Main</v-btn>
 			<v-spacer></v-spacer>
 			<v-toolbar-items class="hidden-sm-and-down">
-				<span id="user" v-if="$store.state.auth.authUser">Welcome {{ $store.state.auth.authUser.username }}!</span>
-				<v-btn icon small><v-icon small @click="dark">invert_colors</v-icon></v-btn>	
+				<span id="item" v-if="$store.state.auth.authUser">Welcome {{ $store.state.auth.authUser.username }}!</span>
+				<v-btn icon small><v-icon small @click="dark">invert_colors</v-icon></v-btn>
+				<todo id="item" v-if="$store.state.auth.authUser" />
+				<!-- <v-btn flat v-if="$store.state.auth.authUser" nuxt:true to="/todo">add TODO</v-btn> -->
 				<v-btn flat v-if="!$store.state.auth.authUser" nuxt:true to="/login">Login</v-btn>
 				<v-btn flat v-if="!$store.state.auth.authUser" nuxt:true to="/register">Register</v-btn>
 				<v-btn flat v-if="$store.state.auth.authUser" nuxt:true to="/DBPage">DB</v-btn>
@@ -19,7 +21,12 @@
 </template>
 
 <script>
+import todo from './Form'
+
 export default {
+	components: {
+		todo
+	},
 	methods: {
 		async logout() {
       try {
@@ -38,7 +45,7 @@ export default {
 
 
 <style>
-	#user {
+	#item {
 		margin: auto;
 		font-weight: bold;
 	}
