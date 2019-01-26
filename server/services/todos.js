@@ -18,8 +18,12 @@ module.exports = {
 		});
 	},
 	async delete(req, res) {
-		const { todos } = await collections();
-		await todos.findOneAndDelete(req.body);
-		res.sendStatus(200);
+		if (req.session.authUser) {
+			const { todos } = await collections();
+			await todos.findOneAndDelete(req.body);
+			res.sendStatus(200);
+		} else {
+			res.sendStatus(401);
+		}
 	}
 };

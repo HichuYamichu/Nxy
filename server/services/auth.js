@@ -30,7 +30,6 @@ module.exports = {
 				type: 'normal'
 			});
 			req.session.authUser = user.ops[0];
-			console.log(user.ops[0]);
 			return res.json({ username: user.ops[0].username, type: user.ops[0].type });
 		} catch (err) {
 			res.status(401).json({ message: err.message });

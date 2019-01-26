@@ -3,37 +3,14 @@
 		<v-toolbar flat dense class="info">
 			<v-toolbar-title>About</v-toolbar-title>
 		</v-toolbar>
-		<v-list>
-			<div v-for="(todo, index) in todos" :key="todo.title">
-				<v-list-tile>
-					<v-list-tile-content>
-						<v-list-tile-title>
-							{{todo.title}}
-						</v-list-tile-title>
-						<v-list-tile-sub-title>
-							{{ todo.description }}
-						</v-list-tile-sub-title>
-					</v-list-tile-content>
-					<v-btn flat @click="remove(index, todo)">remove</v-btn>
-				</v-list-tile>
-				<v-divider v-if="index + 1 < todos.length" :key="`divider-${index}`"></v-divider>
-			</div>
-		</v-list>
+		<div class="pt-2 pb-3">
+			<v-card-text>Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis assumenda animi deleniti quo minima numquam id, reiciendis cumque eum, suscipit deserunt sequi saepe exercitationem provident. Consequatur inventore placeat dicta obcaecati!</v-card-text>
+		</div>
 	</v-card>
 </template>
 
 <script>
-	import axios from 'axios'
-	import todoList from './List'
-
 	export default {
-		props: ['todos'],
-		methods: {
-			async remove(index, todo) {
-				this.$delete(this.todos, index)
-				await this.$axios.$delete('/api/todo', { data: { title: todo.title, description: todo.description } })
-			}
-		}
 	}
 </script>
 

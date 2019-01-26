@@ -2,6 +2,7 @@
   <v-footer
     dark
     height="auto"
+		app
   >
     <v-card
       class="flex"

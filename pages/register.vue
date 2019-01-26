@@ -24,6 +24,7 @@
 					</form>
         	<div class="error" v-html="formError" />
         	<v-btn
+						:loading="loading"
 						class="primary"
             @click="register">
             Register
@@ -45,10 +46,12 @@ export default {
 			formError: null,
 			formUsername: '',
 			formPassword: '',
+			loading: false
 		}
 	},
 	methods: {
 		async register() {
+			loading: true
 			try {
 				await this.$store.dispatch('register', {
 					username: this.formUsername,
@@ -57,6 +60,7 @@ export default {
 				this.formUsername = ''
 				this.formPassword = ''
 				this.formError = null
+				loading: false
 				this.$router.push("/")
 
 			} catch (e) {

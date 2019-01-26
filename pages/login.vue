@@ -24,6 +24,7 @@
 					</form>
         	<div class="error" v-html="formError" />
         	<v-btn
+						:loading="loading"
 						class="primary"
             @click="login">
             Login
@@ -45,10 +46,12 @@ export default {
 			formError: null,
 			formUsername: '',
 			formPassword: '',
+			loading: false
 		}
 	},
 	methods: {
 		async login() {
+			this.loading = true
 			try {
 				await this.$store.dispatch('login', {
 					username: this.formUsername,
@@ -62,6 +65,7 @@ export default {
 			} catch (e) {
 				this.formError = e.message
 			}
+			this.loading = false
 		},
 	},
 }

@@ -1,15 +1,17 @@
 <template>
 		<v-dialog max-width="600px" v-model="dialog">
-			<v-btn flat slot="activator" class="success">Add TODO</v-btn>
+			<v-btn slot="activator" class="pretty" round flat>Add TODO</v-btn>
 			<v-card>
-				<v-card-title>
-					<h2>Add TODO</h2>
-				</v-card-title>
+				<v-toolbar>
+					<v-toolbar-title>
+						Add TODO
+					</v-toolbar-title>
+				</v-toolbar>
 				<v-card-text>
 					<v-form class="px-3">
 						<v-text-field label="Title" v-model="title"></v-text-field>
 						<v-textarea label="Description" v-model="description"></v-textarea>
-						<v-btn flat class="secondary mx-0 mt-3" @click="submit">Submit</v-btn>
+						<v-btn flat class="pretty mx-0 mt-3" @click="submit">Submit</v-btn>
 					</v-form>
 				</v-card-text>
 			</v-card>
@@ -27,7 +29,10 @@ export default {
 	}, 
 	methods: {
 		submit() {
+			this.$store.commit('todos/ADD_TODO', { title: this.title, description: this.description })
 			this.$axios.$post('/api/todo', { title: this.title, description: this.description })
+			this.title = ''
+			this.description = ''
 			this.dialog = false
 		}
 	}

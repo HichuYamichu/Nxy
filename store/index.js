@@ -11,13 +11,15 @@ export const mutations = {
 };
 
 export const actions = {
-	nuxtServerInit(store, { req }) {
+	async nuxtServerInit({ commit }, { $axios, req }) {
 		if (req.session && req.session.authUser) {
-			store.commit('auth/SET_USER', { username: req.session.authUser.username });
+			commit('auth/SET_USER', { username: req.session.authUser.username });
 			if (typeof req.session.dark !== 'undefined') {
-				store.commit('THEME', req.session.dark);
+				commit('THEME', req.session.dark);
 			}
 		}
+		const data = await $axios.$get('/api/todo');
+		commit('todos/SET', data);
 	},
 
 	async setTheme({ state, commit }) {

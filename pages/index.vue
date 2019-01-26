@@ -4,29 +4,27 @@
 			<panel></panel>
 		</v-flex>
 		<v-flex xs4>
-			<panel v-bind:todos="data"></panel>
+			<panel></panel>
 		</v-flex>
 		<v-flex xs6 class="mt-5">
 			<carousel/>
 		</v-flex>
 		<v-flex xs4 class="mt-5">
-			<panel/>
+			<todo/>
 		</v-flex>
 	</v-layout>
 </template>
 
 <script>
 import panel from '~/components/Panel.vue'
+import todo from '~/components/todo.vue'
 import carousel from '~/components/Carousel.vue'
 
 export default {
   components: {
 		panel,
-		carousel
+		carousel,
+		todo
   },
-	async asyncData({ $axios }) {
-		const data = await $axios.$get('/api/todo')
-		return { data }
-	}
 }
 </script>
