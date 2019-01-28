@@ -16,7 +16,6 @@ import pageHeader from '~/components/Header.vue'
 import pageFooter from '~/components/Footer.vue'
 
   export default {
-		// middleware: 'auth',
     components: {
 			pageHeader,
 			pageFooter

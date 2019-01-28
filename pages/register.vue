@@ -51,7 +51,7 @@ export default {
 	},
 	methods: {
 		async register() {
-			loading: true
+			this.loading = true
 			try {
 				await this.$store.dispatch('register', {
 					username: this.formUsername,
@@ -60,12 +60,12 @@ export default {
 				this.formUsername = ''
 				this.formPassword = ''
 				this.formError = null
-				loading: false
 				this.$router.push("/")
 
 			} catch (e) {
 				this.formError = e.message
 			}
+			this.loading = false
 		},
 	},
 }

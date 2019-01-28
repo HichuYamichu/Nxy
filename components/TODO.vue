@@ -3,7 +3,7 @@
 		<v-toolbar flat dense class="info">
 			<v-toolbar-title>TODO list</v-toolbar-title>
 		</v-toolbar>
-		<v-list style="max-height:500px; overflow-y: auto;">
+		<v-list style="max-height:450px; overflow-y: auto;">
 			<div v-for="(todo, index) in todos" :key="index">
 				<v-list-tile>
 					<v-list-tile-content>

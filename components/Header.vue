@@ -9,7 +9,7 @@
 			<v-toolbar-items class="hidden-sm-and-down">
 				<span id="item" class="mx-1" v-if="$store.state.auth.authUser">Welcome {{ $store.state.auth.authUser.username }}!</span>
 				<v-btn icon small block><v-icon @click="dark">invert_colors</v-icon></v-btn>
-				<todo id="item" class="mx-1" v-if="$store.state.auth.authUser"></todo>
+				<todo id="item" class="mr-2" v-if="$store.state.auth.authUser"></todo>
 				<v-btn flat v-if="!$store.state.auth.authUser" nuxt:true to="/login">Login</v-btn>
 				<v-btn flat v-if="!$store.state.auth.authUser" nuxt:true to="/register">Register</v-btn>
 				<v-btn flat v-if="$store.state.auth.authUser" nuxt:true to="/DBPage">DB</v-btn>
